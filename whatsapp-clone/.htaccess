@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Enable HTTPS
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# Cache Control for Service Worker
+<Files "serviceWorker.js">
+  Header set Cache-Control "no-cache"
+</Files>
+
+# Proper MIME types
+AddType application/javascript .js
+AddType application/json .json
+AddType text/css .css
+
+# Enable CORS if needed
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
